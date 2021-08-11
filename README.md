@@ -63,11 +63,28 @@ developing your own process.
 - Add a new toy when the toy form is submitted
 
   - How I debugged:
+  1. Tried submitting form with data
+  2. Checked console
+    - Saw error message: POST /toys 500 (Internal Server Error)
+  3. Checked network tab
+    - Saw error message: NameError: uninitialized constant ToysController::Toys
+  4. Based on error in network tab, knew there was a typo in the controller
+  5. Changed line 10 for the #create method from "toy = Toys.create(toy_params)" to "toy = Toy.create(toy_params)"
 
 - Update the number of likes for a toy
 
   - How I debugged:
+  1. Checked console
+    - Saw error message: "Uncaught (in promise) Syntax Error: Unexpected end of JSON input at ToyCard.js:21"
+  2. Based on error, knew that controller was not rendering a JSON response for the frontend to use
+  3. Added a line to #update method: "render json: toys"
 
 - Donate a toy to Goodwill (and delete it from our database)
 
   - How I debugged:
+  1. Checked console
+    - Saw error message: DELETE /toys/2 404 (Not Found)
+  2. Checked network tab
+    - Saw error message: ActionController::RoutingError: No route matchs [DELETE] \"/toys/2\"
+  3. Based on error, knew there was a route missing
+  4. Added :destroy as an option to the routes for toys
